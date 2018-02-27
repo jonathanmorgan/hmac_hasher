@@ -83,18 +83,44 @@ def test_standardize_name():
     assert expected_output == actual_output
 
     input = "  Mo    rgan  "
-    expected_output = "MO RGAN"
+    expected_output = "MO    RGAN"
     actual_output = hmac_hasher.standardize_name( input )
     assert expected_output == actual_output
 
     input = "Morga='n"
-    expected_output = "MORGAN"
+    expected_output = "MORGA='N"
     actual_output = hmac_hasher.standardize_name( input )
     assert expected_output == actual_output
 
     input = "  Mo    rga='n  "
-    expected_output = "MO RGAN"
+    expected_output = "MO    RGA='N"
     actual_output = hmac_hasher.standardize_name( input )
+    assert expected_output == actual_output
+
+    # test additional formatting options
+    
+    # compact white space
+    input = "  Mo    rgan  "
+    expected_output = "MO RGAN"
+    actual_output = hmac_hasher.standardize_name( input, do_compact_white_space_IN = True )
+    assert expected_output == actual_output
+
+    # remove punctuation
+    input = "Morga='n"
+    expected_output = "MORGAN"
+    actual_output = hmac_hasher.standardize_name( input, do_remove_punctuation_IN = True )
+    assert expected_output == actual_output
+
+    # lower instead of upper
+    input = "Morgan"
+    expected_output = "morgan"
+    actual_output = hmac_hasher.standardize_name( input, convert_to_case_IN = hmac_hasher.STRING_LOWER_CASE )
+    assert expected_output == actual_output    
+
+    # all at once.
+    input = "  Mo    rga='n  "
+    expected_output = "mo rgan"
+    actual_output = hmac_hasher.standardize_name( input, do_compact_white_space_IN = True, do_remove_punctuation_IN = True, convert_to_case_IN = hmac_hasher.STRING_LOWER_CASE )
     assert expected_output == actual_output
 
 #-- END function test_standardize_name() --#
@@ -132,18 +158,44 @@ def test_standardize_string():
     assert expected_output == actual_output
 
     input = "  Mo    rgan  "
-    expected_output = "MO RGAN"
+    expected_output = "MO    RGAN"
     actual_output = hmac_hasher.standardize_string( input )
     assert expected_output == actual_output
 
     input = "Morga='n"
-    expected_output = "MORGAN"
+    expected_output = "MORGA='N"
     actual_output = hmac_hasher.standardize_string( input )
     assert expected_output == actual_output
 
     input = "  Mo    rga='n  "
-    expected_output = "MO RGAN"
+    expected_output = "MO    RGA='N"
     actual_output = hmac_hasher.standardize_string( input )
+    assert expected_output == actual_output
+
+    # test additional formatting options
+    
+    # compact white space
+    input = "  Mo    rgan  "
+    expected_output = "MO RGAN"
+    actual_output = hmac_hasher.standardize_string( input, do_compact_white_space_IN = True )
+    assert expected_output == actual_output
+
+    # remove punctuation
+    input = "Morga='n"
+    expected_output = "MORGAN"
+    actual_output = hmac_hasher.standardize_string( input, do_remove_punctuation_IN = True )
+    assert expected_output == actual_output
+
+    # lower instead of upper
+    input = "Morgan"
+    expected_output = "morgan"
+    actual_output = hmac_hasher.standardize_string( input, convert_to_case_IN = hmac_hasher.STRING_LOWER_CASE )
+    assert expected_output == actual_output    
+
+    # all at once.
+    input = "  Mo    rga='n  "
+    expected_output = "mo rgan"
+    actual_output = hmac_hasher.standardize_string( input, do_compact_white_space_IN = True, do_remove_punctuation_IN = True, convert_to_case_IN = hmac_hasher.STRING_LOWER_CASE )
     assert expected_output == actual_output
 
 #-- END function test_standardize_string() --#
