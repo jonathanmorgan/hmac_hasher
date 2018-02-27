@@ -64,6 +64,11 @@ class HMACHasher( object ):
     # encoding
     DEFAULT_FILE_ENCODING = "utf-8"
 
+    # string case
+    STRING_UPPER_CASE = "upper"
+    STRING_LOWER_CASE = "lower"
+    STRING_CASE_DEFAULT = STRING_UPPER_CASE
+
 
     #--------------------------------------------------------------------------#
     # init
@@ -747,14 +752,19 @@ class HMACHasher( object ):
     #-- END method set_passphrase
 
 
-    def standardize_name( self, value_IN ):
+    def standardize_name( self,
+                          value_IN,
+                          do_remove_punctuation_IN = False,
+                          do_compact_white_space_IN = False,
+                          convert_to_case_IN = STRING_CASE_DEFAULT ):
 
         '''
         Accepts name or name part (first name, middle name, last name).  Does
         the following:
 
-        - converts to upper case.
+        - converts to upper case (you can adjust this in convert_to_case_IN).
         - strips leading and trailing white space.
+        - has optional additional cleaning, not done by default.
 
         then returns the result.
         '''
@@ -763,14 +773,21 @@ class HMACHasher( object ):
         value_OUT = None
 
         # use standard standardization function.
-        value_OUT = self.standardize_string( value_IN )
+        value_OUT = self.standardize_string( value_IN,
+                                             do_remove_punctuation_IN = do_remove_punctuation_IN,
+                                             do_compact_white_space_IN = do_compact_white_space_IN,
+                                             convert_to_case_IN = convert_to_case_IN )
 
         return value_OUT
 
     #-- END method standardize_name() --#
 
 
-    def standardize_ssn( self, value_IN ):
+    def standardize_ssn( self,
+                         value_IN,
+                         do_remove_punctuation_IN = True,
+                         do_compact_white_space_IN = True,
+                         convert_to_case_IN = None ):
 
         '''
         Accepts SSN value.  Does the following:
@@ -785,14 +802,21 @@ class HMACHasher( object ):
         value_OUT = None
 
         # use standard standardization function.
-        value_OUT = self.standardize_string( value_IN )
+        value_OUT = self.standardize_string( value_IN,
+                                             do_remove_punctuation_IN = do_remove_punctuation_IN,
+                                             do_compact_white_space_IN = do_compact_white_space_IN,
+                                             convert_to_case_IN = convert_to_case_IN )
 
         return value_OUT
 
     #-- END method standardize_ssn() --#
 
 
-    def standardize_string( self, value_IN ):
+    def standardize_string( self,
+                            value_IN,
+                            do_remove_punctuation_IN = False,
+                            do_compact_white_space_IN = False,
+                            convert_to_case_IN = STRING_CASE_DEFAULT ):
 
         '''
         Accepts name or name part (first name, middle name, last name).  Does
@@ -813,16 +837,47 @@ class HMACHasher( object ):
             # start with value passed in.
             value_OUT = value_IN
 
-            # remove punctuation if any present.
-            value_OUT = self.strip_punctuation( value_OUT )
+            # remove punctuation?
+            if ( do_remove_punctuation_IN == True ):
+            
+                # remove punctuation if any present.
+                value_OUT = self.strip_punctuation( value_OUT )
 
-            # convert to upper case
-            value_OUT = value_OUT.upper()
+            #-- END check to see if we remove punctuation --#
+
+            # convert string case?
+            if ( convert_to_case_IN is not None ):
+
+                # --> upper?
+                if ( convert_to_case_IN == self.STRING_UPPER_CASE ):
+                
+                    # convert to upper case.
+                    value_OUT = value_OUT.upper()
+
+                # --> lower?
+                elif ( convert_to_case_IN == self.STRING_LOWER_CASE ):
+
+                    # convert to lower case.
+                    value_OUT = value_OUT.lower()
+
+                else:
+
+                    # unknown
+                    print( "ERROR - case type {} is unknown - did not convert.".format( convert_to_case_IN ) )
+
+                #-- END check to see how to convert. --#
+
+            #-- END check to see if we convert case. --#
 
             # convert any stretches of more than one contiguous space to a single space.
-            value_OUT = self.remove_extra_space( value_OUT )
+            if ( do_compact_white_space_IN == True ):
 
-            # strip any white space from the ends of the string.
+                # remove extra white space.
+                value_OUT = self.remove_extra_space( value_OUT )
+
+            #-- END check to see if we compact white space. --#
+
+            # always strip any white space from the ends of the string.
             value_OUT = value_OUT.strip()
 
         else:
