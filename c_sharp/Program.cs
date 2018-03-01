@@ -46,45 +46,58 @@ namespace c_sharp
             byte[] hashValue = null;
             //string resultSTR = null;
 
-            // set up hash test.
-            secret = secret_IN;
-            to_hash = value_IN;
+            // do we have a value?
+            if ( ( value_IN != null ) && ( value_IN != "" ) )
+            {
+                
+                // set up hash test.
+                secret = secret_IN;
+                to_hash = value_IN;
 
-            // set encoding
-            encoding = new System.Text.UTF8Encoding();
-            
-            // Hash secret using SHA256, use that as the key.
-            key = SHA256HashByteArray( secret );
+                // set encoding
+                encoding = new System.Text.UTF8Encoding();
+                
+                // Hash secret using SHA256, use that as the key.
+                key = SHA256HashByteArray( secret );
 
-            // not just converting to byte array
-            // key = encoding.GetBytes( secret );
+                // not just converting to byte array
+                // key = encoding.GetBytes( secret );
 
-            // initialize HMAC hasher.
-            myhmacsha256 = new System.Security.Cryptography.HMACSHA256( key );
-            
-            // hash the value.
-            value_bytes = encoding.GetBytes( to_hash );
+                // initialize HMAC hasher.
+                myhmacsha256 = new System.Security.Cryptography.HMACSHA256( key );
+                
+                // hash the value.
+                value_bytes = encoding.GetBytes( to_hash );
 
-            // compute hash on bytes
-            hashValue = myhmacsha256.ComputeHash( value_bytes );
-            
-            // clear out the hasher - wouldn't need to do this if you just
-            //    initialized it once with a secret, then kept it around in a
-            //    variable.
-            myhmacsha256.Clear();
+                // compute hash on bytes
+                hashValue = myhmacsha256.ComputeHash( value_bytes );
+                
+                // clear out the hasher - wouldn't need to do this if you just
+                //    initialized it once with a secret, then kept it around in a
+                //    variable.
+                myhmacsha256.Clear();
 
-            // convert to base-64 string.
-            // resultSTR = Convert.ToBase64String( hashValue );
-            // Console.WriteLine( "base 64: " + resultSTR );
-            
-            // output as base-64
+                // convert to base-64 string.
+                // resultSTR = Convert.ToBase64String( hashValue );
+                // Console.WriteLine( "base 64: " + resultSTR );
+                
+                // output as base-64
 
-            // output as hex, lower-case...
-            hex_hash = BitConverter.ToString( hashValue ).Replace( "-", string.Empty );
-            hex_hash = hex_hash.ToLower();
-            //Console.WriteLine( "hex: " + hex_hash );
+                // output as hex, lower-case...
+                hex_hash = BitConverter.ToString( hashValue ).Replace( "-", string.Empty );
+                hex_hash = hex_hash.ToLower();
+                //Console.WriteLine( "hex: " + hex_hash );
 
-            value_OUT = hex_hash;
+                value_OUT = hex_hash;
+
+            }
+            else
+            {
+                
+                // nothing passed in.  Return "".
+                value_OUT = "";
+
+            }
 
             return value_OUT;
 
