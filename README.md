@@ -126,7 +126,7 @@ To run the standalone hashing program that hashes all values in all columns in a
 
 ### Example: Using HMACHasher class instances in separate program
 
-To see an example of the HMACHasher class being used in a standalone program, see the Jupyter notebook `Hashing-CSV-to-CSV.ipynb` in the root folder of this repository.
+To see an example of the HMACHasher class being used in a standalone program, see the Jupyter notebook `Hashing-CSV-to-CSV.ipynb` in the `python` folder of this repository ( [https://github.com/jsm296/hmac_hasher/blob/master/python/Hashing-CSV-to-CSV.ipynb](https://github.com/jsm296/hmac_hasher/blob/master/python/Hashing-CSV-to-CSV.ipynb) ).
 
 This jupyter notebook contains a more nuanced example where a CSV file is read in, some values are hashed, and then each row is written to a separate output file (if you need jupyter, consider installing Anaconda: [https://www.anaconda.com/download/](https://www.anaconda.com/download/)).
 
