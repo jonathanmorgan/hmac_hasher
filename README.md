@@ -78,7 +78,7 @@ To run Python unit tests:
 - make sure you have installed pytest (using pip, it is `pip install pytest`).
 - in a command shell:
 
-    - cd into the `data-tools/deidentification/hmac_hasher/python` folder.
+    - cd into the `hmac_hasher/python` folder.
     - run `pytest`
 
 - if successful, you should see something like:
@@ -96,7 +96,7 @@ To run the end-to-end test program:
 
 - in a command shell:
 
-    - cd into the `data-tools/deidentification/hmac_hasher/hmac_hasher` folder.
+    - cd into the `hmac_hasher/python/hmac_hasher` folder.
     - run `python hash_tester.py`
 
 - If successful, you should see something like:
@@ -114,7 +114,7 @@ To run the standalone hashing program that hashes all values in all columns in a
 
 - in a command shell:
 
-    - cd into the `data-tools/deidentification/hmac_hasher/hmac_hasher` folder.
+    - cd into the `hmac_hasher/python/hmac_hasher` folder.
     - run `python hash_program.py <ini_file_path>`
 
         - WHERE `<ini_file_path>` is the path to your INI file.
@@ -126,7 +126,7 @@ To run the standalone hashing program that hashes all values in all columns in a
 
 ### Example: Using HMACHasher class instances in separate program
 
-To see an example of the HMACHasher class being used in a standalone program, see the Jupyter notebook `Hashing-CSV-to-CSV.ipynb` in the `python` folder of this repository ( [https://github.com/jsm296/hmac_hasher/blob/master/python/Hashing-CSV-to-CSV.ipynb](https://github.com/jsm296/hmac_hasher/blob/master/python/Hashing-CSV-to-CSV.ipynb) ).
+To see an example of the HMACHasher class being used in a standalone program, see the Jupyter notebook `Hashing-CSV-to-CSV.ipynb` in the `python` folder of this repository ( [https://github.com/jonathanmorgan/hmac_hasher/blob/master/python/Hashing-CSV-to-CSV.ipynb](https://github.com/jonathanmorgan/hmac_hasher/blob/master/python/Hashing-CSV-to-CSV.ipynb) ).
 
 This jupyter notebook contains a more nuanced example where a CSV file is read in, some values are hashed, and then each row is written to a separate output file (if you need jupyter, consider installing Anaconda: [https://www.anaconda.com/download/](https://www.anaconda.com/download/)).
 
