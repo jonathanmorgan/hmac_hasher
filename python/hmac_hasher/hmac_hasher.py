@@ -257,7 +257,7 @@ class HMACHasher( object ):
     #-- END method hash_ssn_value() --#
 
 
-    def hash_value( self, message_IN ):
+    def hash_value( self, message_IN, allow_empty_string_IN = False ):
 
         '''
         Accepts value we want to hash.  Uses HMAC instance nested in this object
@@ -274,7 +274,7 @@ class HMACHasher( object ):
         hmac_key = None
 
         # anything passed in?
-        if ( ( message_IN is not None ) and ( message_IN != "" ) ):
+        if ( ( message_IN is not None ) and ( ( allow_empty_string_IN == True ) or ( message_IN != "" ) ) ):
 
             # encode
             encoded_message = message_IN.encode( "utf-8" )

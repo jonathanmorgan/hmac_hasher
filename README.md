@@ -30,13 +30,13 @@ For C#, includes a basic class that implements HMAC Hashing so that it returns s
 
         - `hmac_hasher.py` - Python source code file that contains actual `HMACHasher` class definition.
         - `requirements.txt` - list of Python packages needed to run the code included in this  repository, for pip (it is just `pytest` and `six` at the moment).
-        - `test_HMACHasher.py` - `pytest`  test case definition file (to run tests, install `pytest` package, then cd into this folder and run `pytest`).
+        - `test_HMACHasher.py` - `pytest`  test case definition file (to run tests, install `pytest` package, then cd into this folder and run `pytest` - more details below).
         - `hash_program.py` - hash program you can run on the command line (see below for details).
-        - `hash_tester.py` - end-to-end test of hashing that uses sample data file and configuration in this folder to test.
+        - `hash_tester.py` - end-to-end test of hashing that uses sample data file and configuration in this folder to test (to run end-to-end tests, cd into this folder and run `python hash_tester.py` - more details below).
         - `Fake_Data_Test.csv` - test data file.
         - `hashing_configuration.ini` - example configuration file also used in `hash_tester.py`.
 
-    - `/c_sharp`
+- `/c_sharp` - contains a C# project with code that can be used to generate hash values that correspond to those from the Python code above when the same salt/secret is used.
 
 ## Creating a secret/salt
 
@@ -73,12 +73,12 @@ _Note: Having the secret in a separate file is useful should you ever want to sh
 
 ### Testing
 
-To run unit tests:
+To run Python unit tests:
 
 - make sure you have installed pytest (using pip, it is `pip install pytest`).
 - in a command shell:
 
-    - cd into the `hmac_hasher` folder.
+    - cd into the `data-tools/deidentification/hmac_hasher/python` folder.
     - run `pytest`
 
 - if successful, you should see something like:
@@ -96,7 +96,7 @@ To run the end-to-end test program:
 
 - in a command shell:
 
-    - cd into the `emac_hasher` folder.
+    - cd into the `data-tools/deidentification/hmac_hasher/hmac_hasher` folder.
     - run `python hash_tester.py`
 
 - If successful, you should see something like:
@@ -114,7 +114,7 @@ To run the standalone hashing program that hashes all values in all columns in a
 
 - in a command shell:
 
-    - cd into the `hmac_hasher` folder.
+    - cd into the `data-tools/deidentification/hmac_hasher/hmac_hasher` folder.
     - run `python hash_program.py <ini_file_path>`
 
         - WHERE `<ini_file_path>` is the path to your INI file.
@@ -126,7 +126,7 @@ To run the standalone hashing program that hashes all values in all columns in a
 
 ### Example: Using HMACHasher class instances in separate program
 
-To see an example of the HMACHasher class being used in a standalone program, see the Jupyter notebook `Hashing-CSV-to-CSV.ipynb` in the root folder of this repository.
+To see an example of the HMACHasher class being used in a standalone program, see the Jupyter notebook `Hashing-CSV-to-CSV.ipynb` in the `python` folder of this repository ( [https://github.com/jsm296/hmac_hasher/blob/master/python/Hashing-CSV-to-CSV.ipynb](https://github.com/jsm296/hmac_hasher/blob/master/python/Hashing-CSV-to-CSV.ipynb) ).
 
 This jupyter notebook contains a more nuanced example where a CSV file is read in, some values are hashed, and then each row is written to a separate output file (if you need jupyter, consider installing Anaconda: [https://www.anaconda.com/download/](https://www.anaconda.com/download/)).
 
